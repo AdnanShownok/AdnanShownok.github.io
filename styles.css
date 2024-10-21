@@ -39,13 +39,19 @@ footer {
 }
 
 
+/* Profile Picture Styling */
 .profile-pic {
-    width: 150px;
+    width: 150px; /* Ensure the image doesn't take up too much space */
     height: 150px;
     border-radius: 50%;
     display: block;
     margin: 0 auto 20px auto;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.profile-pic img {
+    max-width: 100%; /* Ensure the image scales properly */
+    height: auto;
 }
 
 .profile-pic:hover {
