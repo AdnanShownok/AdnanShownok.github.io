@@ -1,42 +1,846 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Adnan Shownok - Portfolio</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Adnan Alahi Shownok — ML &amp; Cybersecurity Research</title>
+<meta name="description" content="Portfolio of Adnan Alahi Shownok — ML-driven cybersecurity, intrusion detection, and multi-agent LLM systems.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0B0E14;
+    --bg-raised:#11151D;
+    --bg-raised-2:#161B26;
+    --line:#1F2630;
+    --line-soft:#171C26;
+    --text:#E6E9EF;
+    --text-dim:#8B94A7;
+    --text-faint:#5B6478;
+    --signal:#5EEAD4;
+    --signal-dim:#1B3A36;
+    --amber:#F5A623;
+    --amber-dim:#3A2C10;
+    --red:#FF6B6B;
+    --mono: 'JetBrains Mono', monospace;
+    --sans: 'Inter', sans-serif;
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--sans);
+    line-height:1.6;
+    overflow-x:hidden;
+  }
+  a{color:inherit;text-decoration:none;}
+
+  ::selection{background:var(--signal-dim);color:var(--signal);}
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; scroll-behavior:auto !important;}
+  }
+
+  :focus-visible{
+    outline:2px solid var(--signal);
+    outline-offset:3px;
+    border-radius:2px;
+  }
+
+  .wrap{
+    max-width:1040px;
+    margin:0 auto;
+    padding:0 28px;
+  }
+
+  /* ---------- NAV ---------- */
+  nav{
+    position:fixed;
+    top:0; left:0; right:0;
+    z-index:100;
+    background:rgba(11,14,20,0.85);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line-soft);
+  }
+  .nav-inner{
+    max-width:1040px;
+    margin:0 auto;
+    padding:16px 28px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+  }
+  .nav-logo{
+    font-family:var(--mono);
+    font-size:14px;
+    font-weight:600;
+    color:var(--text);
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  .nav-logo .dot{
+    width:7px;height:7px;border-radius:50%;
+    background:var(--signal);
+    box-shadow:0 0 8px var(--signal);
+    animation:pulse 2.4s ease-in-out infinite;
+  }
+  @keyframes pulse{
+    0%,100%{opacity:1;}
+    50%{opacity:0.35;}
+  }
+  .nav-links{
+    display:flex;
+    gap:28px;
+    font-family:var(--mono);
+    font-size:12.5px;
+    color:var(--text-dim);
+  }
+  .nav-links a{transition:color 0.2s;}
+  .nav-links a:hover{color:var(--signal);}
+  .nav-links .idx{color:var(--text-faint); margin-right:4px;}
+
+  @media (max-width:640px){
+    .nav-links{gap:16px;}
+    .nav-links span.label{display:none;}
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    padding:160px 0 100px;
+    position:relative;
+  }
+  .hero-grid{
+    display:grid;
+    grid-template-columns:1.1fr 0.9fr;
+    gap:56px;
+    align-items:start;
+  }
+  @media (max-width:860px){
+    .hero-grid{grid-template-columns:1fr; gap:48px;}
+  }
+
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:12.5px;
+    color:var(--signal);
+    letter-spacing:0.04em;
+    margin-bottom:20px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .eyebrow::before{
+    content:"";
+    width:18px;height:1px;
+    background:var(--signal);
+    display:inline-block;
+  }
+
+  h1{
+    font-family:var(--sans);
+    font-weight:800;
+    font-size:clamp(34px, 5vw, 52px);
+    line-height:1.08;
+    letter-spacing:-0.01em;
+    color:#fff;
+    margin-bottom:22px;
+  }
+  h1 .accent{color:var(--signal);}
+
+  .hero-desc{
+    color:var(--text-dim);
+    font-size:16.5px;
+    max-width:480px;
+    margin-bottom:32px;
+  }
+  .hero-desc strong{color:var(--text); font-weight:600;}
+
+  .hero-actions{
+    display:flex;
+    gap:14px;
+    flex-wrap:wrap;
+    margin-bottom:40px;
+  }
+  .btn{
+    font-family:var(--mono);
+    font-size:13px;
+    font-weight:500;
+    padding:12px 20px;
+    border-radius:6px;
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    transition:all 0.2s;
+    border:1px solid var(--line);
+  }
+  .btn-primary{
+    background:var(--signal);
+    color:#06201C;
+    border-color:var(--signal);
+  }
+  .btn-primary:hover{
+    background:#7CF0DC;
+    transform:translateY(-1px);
+  }
+  .btn-ghost{
+    color:var(--text);
+    background:var(--bg-raised);
+  }
+  .btn-ghost:hover{
+    border-color:var(--text-dim);
+    transform:translateY(-1px);
+  }
+
+  .hero-meta{
+    display:flex;
+    gap:24px;
+    font-family:var(--mono);
+    font-size:12px;
+    color:var(--text-faint);
+    flex-wrap:wrap;
+  }
+  .hero-meta span{display:flex; align-items:center; gap:6px;}
+
+  /* ---------- TERMINAL PANEL (signature element) ---------- */
+  .panel{
+    background:var(--bg-raised);
+    border:1px solid var(--line);
+    border-radius:10px;
+    overflow:hidden;
+    box-shadow:0 20px 60px -20px rgba(0,0,0,0.6);
+  }
+  .panel-head{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:11px 16px;
+    border-bottom:1px solid var(--line);
+    background:var(--bg-raised-2);
+  }
+  .panel-dots{display:flex; gap:6px;}
+  .panel-dots span{width:9px;height:9px;border-radius:50%;background:var(--line);}
+  .panel-title{
+    font-family:var(--mono);
+    font-size:11.5px;
+    color:var(--text-faint);
+  }
+  .panel-body{
+    padding:18px 18px 20px;
+    font-family:var(--mono);
+    font-size:12.5px;
+    min-height:230px;
+  }
+  .log-line{
+    color:var(--text-faint);
+    margin-bottom:9px;
+    opacity:0;
+    animation:fadeIn 0.4s forwards;
+    white-space:pre-wrap;
+    word-break:break-word;
+  }
+  .log-line .tag{color:var(--text-dim);}
+  .log-line .val{color:var(--text);}
+  .log-line.verdict{
+    color:var(--signal);
+    font-weight:600;
+    border-top:1px dashed var(--line);
+    padding-top:10px;
+    margin-top:10px;
+  }
+  .log-line.amber{color:var(--amber);}
+  @keyframes fadeIn{ to{opacity:1;} }
+
+  .confidence-bar{
+    height:5px;
+    background:var(--line);
+    border-radius:3px;
+    overflow:hidden;
+    margin:4px 0 12px;
+  }
+  .confidence-fill{
+    height:100%;
+    background:var(--signal);
+    width:0%;
+    border-radius:3px;
+    transition:width 1.4s cubic-bezier(.2,.8,.2,1);
+  }
+
+  /* ---------- SECTION SHARED ---------- */
+  section{padding:90px 0;}
+  .section-head{
+    display:flex;
+    align-items:baseline;
+    gap:14px;
+    margin-bottom:44px;
+  }
+  .section-num{
+    font-family:var(--mono);
+    font-size:12.5px;
+    color:var(--signal);
+  }
+  .section-title{
+    font-family:var(--sans);
+    font-weight:800;
+    font-size:26px;
+    color:#fff;
+    letter-spacing:-0.01em;
+  }
+  .section-line{
+    flex:1;
+    height:1px;
+    background:var(--line);
+  }
+
+  /* ---------- ABOUT ---------- */
+  .about-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:48px;
+  }
+  @media (max-width:760px){
+    .about-grid{grid-template-columns:1fr; gap:32px;}
+  }
+  .about-text p{
+    color:var(--text-dim);
+    margin-bottom:16px;
+    font-size:15.5px;
+  }
+  .about-text strong{color:var(--text);}
+
+  .stat-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:1px;
+    background:var(--line);
+    border:1px solid var(--line);
+    border-radius:10px;
+    overflow:hidden;
+  }
+  .stat{
+    background:var(--bg-raised);
+    padding:22px 20px;
+  }
+  .stat-num{
+    font-family:var(--mono);
+    font-size:24px;
+    font-weight:700;
+    color:var(--signal);
+    margin-bottom:4px;
+  }
+  .stat-label{
+    font-size:12px;
+    color:var(--text-faint);
+    line-height:1.4;
+  }
+
+  /* ---------- EDUCATION ---------- */
+  .edu-card{
+    border:1px solid var(--line);
+    border-radius:10px;
+    padding:26px 28px;
+    background:var(--bg-raised);
+  }
+  .edu-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    flex-wrap:wrap;
+    gap:8px;
+    margin-bottom:6px;
+  }
+  .edu-school{
+    font-weight:700;
+    font-size:17px;
+    color:#fff;
+  }
+  .edu-date{
+    font-family:var(--mono);
+    font-size:12px;
+    color:var(--text-faint);
+    white-space:nowrap;
+  }
+  .edu-degree{color:var(--text-dim); font-size:14.5px; margin-bottom:14px;}
+  .edu-thesis{
+    font-size:14px;
+    color:var(--text-dim);
+    border-left:2px solid var(--signal);
+    padding-left:14px;
+    margin-top:14px;
+  }
+  .edu-thesis .label{
+    font-family:var(--mono);
+    font-size:11px;
+    color:var(--text-faint);
+    text-transform:uppercase;
+    letter-spacing:0.05em;
+    display:block;
+    margin-bottom:4px;
+  }
+  .edu-thesis .sup{
+    margin-top:8px;
+    font-size:13px;
+    color:var(--text-faint);
+  }
+
+  /* ---------- PROJECTS ---------- */
+  .project-card{
+    border:1px solid var(--line);
+    border-radius:12px;
+    background:var(--bg-raised);
+    margin-bottom:24px;
+    overflow:hidden;
+  }
+  .project-card.featured{
+    border-color:var(--signal-dim);
+  }
+  .project-head{
+    padding:24px 28px 0;
+  }
+  .project-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    flex-wrap:wrap;
+    gap:10px;
+    margin-bottom:10px;
+  }
+  .project-title{
+    font-size:19px;
+    font-weight:700;
+    color:#fff;
+  }
+  .project-date{
+    font-family:var(--mono);
+    font-size:11.5px;
+    color:var(--text-faint);
+    white-space:nowrap;
+    padding-top:3px;
+  }
+  .project-stack{
+    display:flex;
+    gap:7px;
+    flex-wrap:wrap;
+    margin-bottom:18px;
+  }
+  .chip{
+    font-family:var(--mono);
+    font-size:11px;
+    color:var(--signal);
+    background:var(--signal-dim);
+    padding:4px 9px;
+    border-radius:5px;
+  }
+  .project-body{
+    padding:0 28px 26px;
+  }
+  .project-list{
+    list-style:none;
+  }
+  .project-list li{
+    position:relative;
+    padding-left:18px;
+    margin-bottom:10px;
+    color:var(--text-dim);
+    font-size:14.5px;
+  }
+  .project-list li::before{
+    content:"›";
+    position:absolute;
+    left:0;
+    color:var(--signal);
+    font-weight:700;
+  }
+  .project-list li:last-child{margin-bottom:0;}
+  .project-list strong{color:var(--text);}
+
+  .highlight-row{
+    display:flex;
+    gap:1px;
+    background:var(--line);
+    border-top:1px solid var(--line);
+  }
+  .highlight{
+    flex:1;
+    background:var(--bg-raised-2);
+    padding:16px 18px;
+    text-align:left;
+  }
+  .highlight-num{
+    font-family:var(--mono);
+    font-weight:700;
+    font-size:19px;
+    color:var(--signal);
+  }
+  .highlight-label{
+    font-size:11px;
+    color:var(--text-faint);
+    margin-top:2px;
+  }
+  @media (max-width:640px){
+    .highlight-row{flex-wrap:wrap;}
+    .highlight{flex:1 1 50%;}
+  }
+
+  /* ---------- SKILLS ---------- */
+  .skills-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:1px;
+    background:var(--line);
+    border:1px solid var(--line);
+    border-radius:10px;
+    overflow:hidden;
+  }
+  @media (max-width:760px){
+    .skills-grid{grid-template-columns:repeat(2,1fr);}
+  }
+  .skill-cat{
+    background:var(--bg-raised);
+    padding:22px 20px;
+  }
+  .skill-cat-title{
+    font-family:var(--mono);
+    font-size:11px;
+    color:var(--amber);
+    text-transform:uppercase;
+    letter-spacing:0.05em;
+    margin-bottom:12px;
+  }
+  .skill-tags{
+    display:flex;
+    flex-direction:column;
+    gap:7px;
+  }
+  .skill-tags span{
+    font-size:13.5px;
+    color:var(--text-dim);
+  }
+
+  /* ---------- CONTACT ---------- */
+  .contact-panel{
+    border:1px solid var(--line);
+    border-radius:12px;
+    background:var(--bg-raised);
+    padding:40px;
+    text-align:center;
+  }
+  .contact-panel h2{
+    font-size:26px;
+    font-weight:800;
+    color:#fff;
+    margin-bottom:12px;
+  }
+  .contact-panel p{
+    color:var(--text-dim);
+    max-width:440px;
+    margin:0 auto 28px;
+    font-size:15px;
+  }
+  .contact-links{
+    display:flex;
+    gap:14px;
+    justify-content:center;
+    flex-wrap:wrap;
+  }
+
+  footer{
+    border-top:1px solid var(--line-soft);
+    padding:28px 0;
+    text-align:center;
+  }
+  footer p{
+    font-family:var(--mono);
+    font-size:11.5px;
+    color:var(--text-faint);
+  }
+
+  /* fade-up reveal */
+  .reveal{
+    opacity:0;
+    transform:translateY(16px);
+    transition:opacity 0.6s ease, transform 0.6s ease;
+  }
+  .reveal.in{
+    opacity:1;
+    transform:translateY(0);
+  }
+</style>
 </head>
 <body>
-    <header>
-        <img src="adnan.jpg" alt="Adnan Shownok" class="profile-pic" style="max-width: 150px; height: auto;">
-        <h1>Hello, I'm Adnan Shownok</h1>
-        <p>Hey, I'm Adnan! 🚀 Coding, creating, and disrupting. Dive into my work, and let's build the future together!</p>
-    </header>
-    
-    <section id="about">
-        <h2>About Me 🙋‍♂️</h2>
-        <p>I'm a tech-savvy creative who loves coding, design, and making things happen. Whether it’s building an app, designing user experiences, or finding fresh ways to solve problems, I’m all in! 💻💡 I’m passionate about using technology to create change. Let’s build something epic together!</p>
-    </section>
-    
-    <section id="projects">
-        <h2>Projects 🚀</h2>
-        <ul>
-            <li><strong><a href="https://github.com/AdnanShownok/Online-Bookstore-Management-System">Online Bookstore Management System</a></strong> - Manage books, orders, and payments in one smooth app. Built with love for bookworms 📚.</li>
-            <li><strong><a href="https://github.com/AdnanShownok/Student-Management-System">Student Management System</a></strong> - Manage student data, courses, and grades efficiently. A complete solution for educational institutions 🎓.</li>
-        </ul>
-    </section>
-    
-    <section id="contact">
-        <h2>Contact ✉️</h2>
-        <p>Feel free to <a href="mailto:adnanshownok@gmail.com">email me</a> for collaboration or just to say hello!</p>
-        <p>Connect with me on <a href="https://www.linkedin.com/in/adnan-alahi-shownok-06aa22249">LinkedIn</a> or <a href="https://x.com/AdnanShownok">Twitter</a>!</p>
-    </section>
 
-    <footer>
-        <p>&copy; 2024 Adnan Shownok. All rights reserved.</p>
-    </footer>
+<nav>
+  <div class="nav-inner">
+    <div class="nav-logo"><span class="dot"></span> A. SHOWNOK</div>
+    <div class="nav-links">
+      <a href="#about"><span class="idx">01</span><span class="label">About</span></a>
+      <a href="#education"><span class="idx">02</span><span class="label">Education</span></a>
+      <a href="#projects"><span class="idx">03</span><span class="label">Projects</span></a>
+      <a href="#skills"><span class="idx">04</span><span class="label">Skills</span></a>
+      <a href="#contact"><span class="idx">05</span><span class="label">Contact</span></a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="eyebrow">CS GRADUATE &middot; ML / CYBERSECURITY</div>
+      <h1>Detecting threats<br>before they <span class="accent">resolve.</span></h1>
+      <p class="hero-desc">
+        I'm <strong>Adnan Alahi Shownok</strong>, a Computer Science graduate from Ahsanullah University of Science and Technology, specializing in ML-driven cybersecurity and LLM systems. My thesis work combines gradient-boosted classifiers with multi-agent LLM pipelines to detect, explain, and mitigate network intrusions — achieving <strong>99.87% classification accuracy</strong> on industry-standard IDS benchmarks.
+      </p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#projects">View thesis &amp; projects →</a>
+        <a class="btn btn-ghost" href="mailto:adnanshownok@gmail.com">Get in touch</a>
+      </div>
+      <div class="hero-meta">
+        <span>📍 Dhaka, Bangladesh</span>
+        <span>🎓 B.Sc. CSE, June 2026</span>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-head">
+        <div class="panel-dots"><span></span><span></span><span></span></div>
+        <div class="panel-title">ids_pipeline.log</div>
+      </div>
+      <div class="panel-body" id="termBody"></div>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section id="about">
+    <div class="section-head">
+      <span class="section-num">01</span>
+      <span class="section-title">About</span>
+      <span class="section-line"></span>
+    </div>
+    <div class="about-grid reveal">
+      <div class="about-text">
+        <p>My research sits at the intersection of <strong>machine learning and applied cybersecurity</strong>. I work on systems that don't just classify network traffic as malicious or benign, but explain <em>why</em>, ground that explanation in established security frameworks, and propose mitigation — closing the loop from detection to actionable response.</p>
+        <p>My undergraduate thesis, supervised by <strong>Prof. Dr. Kazi A. Kalpoma</strong>, built a two-stage framework: classical ML classifiers (XGBoost, Random Forest, LightGBM) for fast, accurate detection, paired with a confidence-aware retrieval-augmented pipeline and a four-agent LLM architecture for incident analysis grounded in <strong>MITRE ATT&CK</strong> and <strong>NIST SP 800-53</strong>.</p>
+        <p>Outside the thesis, I've built full-stack and desktop applications in PHP and Java, and I'm continuing to work across the ML, security, and open-source software stack.</p>
+      </div>
+      <div class="stat-grid">
+        <div class="stat"><div class="stat-num">99.87%</div><div class="stat-label">Classification accuracy on CICIDS2017</div></div>
+        <div class="stat"><div class="stat-num">98.35%</div><div class="stat-label">Classification accuracy on UNSW-NB15</div></div>
+        <div class="stat"><div class="stat-num">540</div><div class="stat-label">Incidents evaluated via LLM-as-judge</div></div>
+        <div class="stat"><div class="stat-num">4-agent</div><div class="stat-label">Orchestrator / Worker / Mitigation / Synthesizer pipeline</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="education">
+    <div class="section-head">
+      <span class="section-num">02</span>
+      <span class="section-title">Education</span>
+      <span class="section-line"></span>
+    </div>
+    <div class="edu-card reveal">
+      <div class="edu-top">
+        <div class="edu-school">Ahsanullah University of Science and Technology</div>
+        <div class="edu-date">June 2026</div>
+      </div>
+      <div class="edu-degree">B.Sc. in Computer Science and Engineering — Dhaka, Bangladesh</div>
+      <div class="edu-thesis">
+        <span class="label">Thesis</span>
+        Leveraging Agent-Based LLMs for Malicious Attack Detection and Mitigation from IDS Logs
+        <div class="sup">Supervisor: Prof. Dr. Kazi A. Kalpoma</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects">
+    <div class="section-head">
+      <span class="section-num">03</span>
+      <span class="section-title">Projects</span>
+      <span class="section-line"></span>
+    </div>
+
+    <div class="project-card featured reveal">
+      <div class="project-head">
+        <div class="project-top">
+          <div class="project-title">Hybrid ML + LLM Intrusion Detection System</div>
+          <div class="project-date">June 2025 – June 2026</div>
+        </div>
+        <div class="project-stack">
+          <span class="chip">Python</span>
+          <span class="chip">XGBoost</span>
+          <span class="chip">LLaMA</span>
+          <span class="chip">RAG</span>
+          <span class="chip">Pinecone</span>
+        </div>
+      </div>
+      <div class="project-body">
+        <ul class="project-list">
+          <li>Designed a two-stage cybersecurity framework combining ML classifiers (<strong>XGBoost, Random Forest, LightGBM</strong>) with a multi-agent LLM pipeline for attack detection, explanation, and mitigation across three benchmark IDS datasets.</li>
+          <li>Engineered a <strong>confidence-aware adaptive RAG pipeline</strong> that routes IDS incidents by prediction confidence, activating Top-3 multi-class retrieval for ambiguous low-confidence cases — 97.6% of all misclassifications occurred in this low-confidence region, validating the routing design.</li>
+          <li>Built a <strong>4-agent LLM architecture</strong> (Orchestrator, Worker, Mitigation, Synthesizer) producing structured 8-section threat assessment reports grounded in MITRE ATT&CK and NIST SP 800-53 knowledge bases.</li>
+          <li>Evaluated report quality with an <strong>LLM-as-judge methodology</strong> across 540 test incidents; LLaMA-3.1-8B scored consistently 4.64–4.76 / 5 across all datasets.</li>
+        </ul>
+      </div>
+      <div class="highlight-row">
+        <div class="highlight"><div class="highlight-num">99.87%</div><div class="highlight-label">CICIDS2017 accuracy</div></div>
+        <div class="highlight"><div class="highlight-num">98.35%</div><div class="highlight-label">UNSW-NB15 accuracy</div></div>
+        <div class="highlight"><div class="highlight-num">97.6%</div><div class="highlight-label">Misclassifications in low-confidence zone</div></div>
+        <div class="highlight"><div class="highlight-num">4.76/5</div><div class="highlight-label">Peak LLM-judge report score</div></div>
+      </div>
+    </div>
+
+    <div class="project-card reveal">
+      <div class="project-head">
+        <div class="project-top">
+          <div class="project-title">Online Bookstore Management System</div>
+          <div class="project-date">March 2024</div>
+        </div>
+        <div class="project-stack">
+          <span class="chip">PHP</span>
+          <span class="chip">MySQL</span>
+        </div>
+      </div>
+      <div class="project-body">
+        <ul class="project-list">
+          <li>Developed a full-stack bookstore web application using PHP with CRUD operations for managing books, users, and orders.</li>
+          <li>Implemented user authentication and session management for secure login and personalized shopping experiences.</li>
+          <li>Designed and normalized a relational MySQL database schema to efficiently store inventory, customer, and transaction data.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="project-card reveal">
+      <div class="project-head">
+        <div class="project-top">
+          <div class="project-title">Student Management System</div>
+          <div class="project-date">August 2023</div>
+        </div>
+        <div class="project-stack">
+          <span class="chip">Java</span>
+          <span class="chip">Swing</span>
+        </div>
+      </div>
+      <div class="project-body">
+        <ul class="project-list">
+          <li>Built a Java desktop application for managing student records including enrollment, grades, and attendance.</li>
+          <li>Applied object-oriented programming principles — inheritance, encapsulation, polymorphism — to structure the codebase.</li>
+          <li>Designed an intuitive GUI with Java Swing, providing clear navigation across multiple functional modules.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills">
+    <div class="section-head">
+      <span class="section-num">04</span>
+      <span class="section-title">Skills &amp; Interests</span>
+      <span class="section-line"></span>
+    </div>
+    <div class="skills-grid reveal">
+      <div class="skill-cat">
+        <div class="skill-cat-title">Programming</div>
+        <div class="skill-tags">
+          <span>Python</span><span>PHP</span><span>Java</span><span>HTML / CSS</span><span>JavaScript</span>
+        </div>
+      </div>
+      <div class="skill-cat">
+        <div class="skill-cat-title">ML / AI</div>
+        <div class="skill-tags">
+          <span>XGBoost</span><span>LightGBM</span><span>Random Forest</span><span>LSTM</span><span>SMOTE</span><span>SHAP</span><span>scikit-learn</span>
+        </div>
+      </div>
+      <div class="skill-cat">
+        <div class="skill-cat-title">Tools</div>
+        <div class="skill-tags">
+          <span>Git</span><span>VS Code</span><span>MySQL</span><span>Java Swing</span><span>LaTeX</span>
+        </div>
+      </div>
+      <div class="skill-cat">
+        <div class="skill-cat-title">Interests</div>
+        <div class="skill-tags">
+          <span>AI-driven cybersecurity</span><span>Open-source dev</span><span>Software engineering</span><span>LLMs</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="section-head">
+      <span class="section-num">05</span>
+      <span class="section-title">Contact</span>
+      <span class="section-line"></span>
+    </div>
+    <div class="contact-panel reveal">
+      <h2>Let's talk security, ML, or both.</h2>
+      <p>Open to research collaborations, ML/cybersecurity roles, and conversations about agentic systems. Reach out — I usually reply within a day.</p>
+      <div class="contact-links">
+        <a class="btn btn-primary" href="mailto:adnanshownok@gmail.com">✉ adnanshownok@gmail.com</a>
+        <a class="btn btn-ghost" href="tel:+8801961262993">📞 +880 1961 262993</a>
+        <a class="btn btn-ghost" href="https://github.com/AdnanShownok" target="_blank" rel="noopener">↗ GitHub</a>
+        <a class="btn btn-ghost" href="https://linkedin.com/in/adnan-alahi-shownok" target="_blank" rel="noopener">↗ LinkedIn</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <p>Adnan Alahi Shownok — Dhaka, Bangladesh — Built June 2026</p>
+</footer>
+
+<script>
+// Reveal on scroll
+const revealEls = document.querySelectorAll('.reveal');
+const obs = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){ e.target.classList.add('in'); obs.unobserve(e.target); }
+  });
+},{threshold:0.12});
+revealEls.forEach(el=>obs.observe(el));
+
+// Terminal hero animation
+const termBody = document.getElementById('termBody');
+const sequence = [
+  {text:'<span class="tag">[12:04:01]</span> incoming packet capture <span class="val">batch_0042.pcap</span>', delay:0},
+  {text:'<span class="tag">[12:04:01]</span> feature extraction <span class="val">→ 78 features</span>', delay:550},
+  {text:'<span class="tag">[12:04:02]</span> stage 1 classifier <span class="val">XGBoost</span> running…', delay:1100},
+  {text:'<span class="tag">[12:04:02]</span> prediction: <span class="val">DDoS</span>', confbar:true, delay:1700},
+  {text:'<span class="tag">[12:04:03]</span> confidence below threshold → routing to <span class="val">adaptive RAG (Top-3)</span>', amber:true, delay:3300},
+  {text:'<span class="tag">[12:04:04]</span> agents dispatched: <span class="val">Orchestrator → Worker → Mitigation</span>', delay:3900},
+  {text:'VERDICT: DDoS confirmed · MITRE T1498 · report synthesized', verdict:true, delay:4600},
+];
+
+function typeLine(line){
+  const div = document.createElement('div');
+  div.className = 'log-line' + (line.verdict ? ' verdict' : '') + (line.amber ? ' amber' : '');
+  div.innerHTML = line.text;
+  termBody.appendChild(div);
+
+  if(line.confbar){
+    const bar = document.createElement('div');
+    bar.className = 'confidence-bar';
+    const fill = document.createElement('div');
+    fill.className = 'confidence-fill';
+    bar.appendChild(fill);
+    termBody.appendChild(bar);
+    requestAnimationFrame(()=> setTimeout(()=>{ fill.style.width = '54%'; },50));
+  }
+}
+
+function runSequence(){
+  termBody.innerHTML = '';
+  sequence.forEach(line=>{
+    setTimeout(()=>typeLine(line), line.delay);
+  });
+  setTimeout(runSequence, 8200);
+}
+
+runSequence();
+</script>
+
 </body>
 </html>
